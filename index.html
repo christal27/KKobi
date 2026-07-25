@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+<script>
+  (function() {
+    function fixViewport() {
+      var w = document.documentElement.clientWidth;
+      if (w > 500) {
+        document.documentElement.style.width = "400px";
+        document.documentElement.style.margin = "0 auto";
+        document.body.style.width = "400px";
+        document.body.style.margin = "0 auto";
+        document.body.style.overflowX = "hidden";
+      }
+    }
+    document.addEventListener("DOMContentLoaded", fixViewport);
+    window.addEventListener("load", fixViewport);
+  })();
+</script>
+<title>꼬비의 서재</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <!-- 자산/상태 (다른 모든 스크립트보다 먼저 로드) -->
+  <script src="js/assets.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/setBuilder.js"></script>
+
+  <!-- 화면들 -->
+  <script src="js/screens/intro.js"></script>
+  <script src="js/screens/question.js"></script>
+  <script src="js/screens/sessionBreak.js"></script>
+  <script src="js/screens/relicAward.js"></script>
+  <script src="js/screens/map.js"></script>
+  <script src="js/screens/wrongNote.js"></script>
+
+  <!-- 라우터(맨 마지막, 시작 트리거) -->
+  <script src="js/router.js"></script>
+</body>
+</html>

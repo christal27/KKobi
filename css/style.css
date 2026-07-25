@@ -1,0 +1,232 @@
+/* ===============================================
+   공통 팔레트 (한 곳만 바꾸면 전체 톤이 바뀜)
+   =============================================== */
+:root {
+  --bg: #3d4d5e;          /* 문제화면 기본 남색 */
+  --header: #2c3948;      /* 상단 헤더 짙은 남색 */
+  --panel: #56697d;       /* 카드/캡슐 배경 */
+  --text: #f5f7f8;
+  --text-dim: rgba(238, 242, 245, 0.65);
+  --brass: #c9a24b;
+  --brass-light: #e3c878;
+  --brass-dark: #a6842f;
+  --wood-line: #4a3324;
+  --ink: #241c14;
+  --cream: #fdf8ec;
+  --gold: #ffd23f;
+  --seal-red: #e8503f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+body {
+  font-family: "Noto Sans KR", -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.screen {
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ---------- 공용 캡슐(배지) ---------- */
+.capsule {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 20px;
+  height: 32px;
+  padding: 0 12px;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+/* ---------- 공용 버튼 ---------- */
+.btn-primary {
+  background: linear-gradient(160deg, var(--brass-light), var(--brass));
+  color: var(--ink);
+  font-weight: 900;
+  border: 3px solid #6e551f;
+  border-radius: 16px;
+  box-shadow: 0 4px 0 #6e551f, 0 6px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 0.05s, box-shadow 0.05s, filter 0.05s;
+}
+.btn-primary:active {
+  filter: brightness(0.75);
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #6e551f, 0 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.btn-secondary {
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text-dim);
+  font-weight: 900;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  transition: transform 0.05s, filter 0.05s, background 0.05s;
+}
+.btn-secondary:active {
+  filter: brightness(0.7);
+  background: rgba(0, 0, 0, 0.45);
+  transform: translateY(2px);
+}
+
+/* ---------- 말풍선(공용) ---------- */
+.speech-bubble {
+  position: relative;
+  background: var(--cream);
+  border: 3px solid var(--wood-line);
+  border-radius: 20px;
+  padding: 13px 16px;
+  color: var(--ink);
+  font-weight: 800;
+  line-height: 1.55;
+}
+.speech-bubble.tail-left::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  bottom: 22px;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 16px solid var(--wood-line);
+}
+.speech-bubble.tail-left::after {
+  content: "";
+  position: absolute;
+  left: -9px;
+  bottom: 23px;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 13px solid var(--cream);
+}
+
+/* ---------- 어둡게 깔리는 오버레이(중단팝업 등) ---------- */
+.dim-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 20, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 20px;
+}
+
+/* ---------- 지도 화면 애니메이션 ---------- */
+@keyframes unlockGlow {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(255,210,63,0.4), 0 0 10px 2px rgba(255,210,63,0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(255,210,63,0.75), 0 0 18px 6px rgba(255,210,63,0.6); }
+}
+@keyframes bounceArrow {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50% { transform: translateX(-50%) translateY(7px); }
+}
+
+/* ---------- 정답 표시(글씨 없이 테두리 발광) ---------- */
+.choice-correct {
+  border-color: var(--gold) !important;
+  animation: correctGlow 0.6s ease-in-out 2;
+}
+@keyframes correctGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,210,63,0.6); }
+  50% { box-shadow: 0 0 14px 4px rgba(255,210,63,0.85); }
+}
+
+/* ---------- 답 미선택 시 살짝 흔들기 ---------- */
+.shake { animation: shakeX 0.4s ease-in-out; }
+@keyframes shakeX {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* ---------- 엽전 증감 팝업(+1 / -1) ---------- */
+.coin-pop {
+  position: absolute;
+  top: -2px;
+  right: -6px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: coinPopFade 2s ease-out forwards;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+}
+@keyframes coinPopFade {
+  0% { opacity: 0; transform: translate(-2px, 6px); }
+  10% { opacity: 1; transform: translate(0px, 0px); }
+  70% { opacity: 1; transform: translate(9px, -10px); }
+  100% { opacity: 0; transform: translate(15px, -18px); }
+}
+
+/* ---------- 회상형 타일/빈칸 공통 규격 ---------- */
+.tile-box {
+  width: 69px;
+  height: 81px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  border: 3px solid var(--brass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--text);
+}
+.tile.tile-box {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+/* ---------- 선택형 버튼 눌림 상태 ---------- */
+.choice-btn {
+  transition: background 0.05s;
+}
+.choice-btn:active {
+  background: rgba(0,0,0,0.35) !important;
+}
+/* ---------- 입장 버튼 자체 발광 ---------- */
+.shimmer-btn {
+  animation: btnGlow 1.8s ease-in-out infinite;
+}
+@keyframes btnGlow {
+  0%, 100% { box-shadow: 0 4px 0 #6e551f, 0 6px 10px rgba(0,0,0,0.25), 0 0 0px rgba(255,225,150,0); }
+  50% { box-shadow: 0 4px 0 #6e551f, 0 6px 10px rgba(0,0,0,0.25), 0 0 20px 6px rgba(255,225,150,0.65); }
+}
+/* ---------- 말풍선 꼬리(위쪽, 중앙) ---------- */
+.speech-bubble.tail-top::before {
+  content: "";
+  position: absolute;
+  top: -14px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 16px solid var(--wood-line);
+}
+.speech-bubble.tail-top::after {
+  content: "";
+  position: absolute;
+  top: -9px; left: 50%;
+  transform: translateX(-50%);
+  width: 0; height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 13px solid var(--cream);
+}
