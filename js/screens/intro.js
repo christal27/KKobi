@@ -5,7 +5,7 @@
 function renderIntro(container, onEnter) {
   container.innerHTML = `
     <div class="screen" id="intro-screen">
-      <video id="opening-video" src="${ASSETS.video.opening}" autoplay playsinline
+      <video id="opening-video" src="${ASSETS.video.opening}" autoplay muted playsinline
              style="width:100%; display:block;"></video>
 
       <div id="greeting" style="display:none; min-height:100vh; min-height:100dvh; position:relative;
