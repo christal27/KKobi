@@ -105,15 +105,18 @@ function renderIntro(container, onEnter) {
     playNext();
   };
 
- video.addEventListener("ended", showGreeting);
+  video.addEventListener("ended", showGreeting);
 
-   let fallbackTimer = setTimeout(showGreeting, 8000);
-   video.addEventListener("loadedmetadata", () => {
-     if (video.duration && isFinite(video.duration)) {
-       clearTimeout(fallbackTimer);
-       fallbackTimer = setTimeout(showGreeting, video.duration * 1000 + 1000);
-     }
-   });
+  // 영상이 없거나 자동재생이 막힌 환경 대비 안전장치.
+  // 처음엔 넉넉하게(8초) 잡아두고, 실제 영상 길이를 알게 되면 그 길이+1초로 다시 맞춤
+  // (영상이 5초보다 길면 끝까지 다 보기 전에 잘리는 일이 없도록)
+  let fallbackTimer = setTimeout(showGreeting, 8000);
+  video.addEventListener("loadedmetadata", () => {
+    if (video.duration && isFinite(video.duration)) {
+      clearTimeout(fallbackTimer);
+      fallbackTimer = setTimeout(showGreeting, video.duration * 1000 + 1000);
+    }
+  });
 
   container.querySelector("#enter-btn").addEventListener("click", () => {
     SOUND.play("click");

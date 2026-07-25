@@ -49,7 +49,6 @@ function renderWrongNote(container, options = {}) {
 
   if (onBack) {
     container.querySelector("#wrongnote-back-btn").addEventListener("click", () => {
-      SOUND.play("click");
       onBack();
     });
   }

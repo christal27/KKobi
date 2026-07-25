@@ -281,24 +281,20 @@ function drawQuestion(container, q, callbacks) {
   }
 
   container.querySelector("#quit-chip").addEventListener("click", () => {
-    SOUND.play("click");
     showConfirm(container, "그만하시겠는가?<br>찾아 놓은 단어패는 잘 기억해 놓겠네.<br>내일 또 봅세!", () => {
       if (callbacks.onQuit) callbacks.onQuit();
     });
   });
 
   container.querySelector("#wrongnote-shortcut").addEventListener("click", () => {
-    SOUND.play("click");
     if (callbacks.onOpenWrongNote) callbacks.onOpenWrongNote();
   });
 
   container.querySelector("#map-btn").addEventListener("click", () => {
-    SOUND.play("click");
     if (callbacks.onOpenMap) callbacks.onOpenMap();
   });
 
   container.querySelector("#chest-group").addEventListener("click", () => {
-    SOUND.play("click");
     showRelicDogam(container);
   });
 
@@ -321,7 +317,6 @@ function drawQuestion(container, q, callbacks) {
   }
 
   container.querySelector("#settings-btn").addEventListener("click", () => {
-    SOUND.play("click");
     showSettingsPanel(container);
   });
 
@@ -451,7 +446,6 @@ function showRelicDogam(container) {
   container.appendChild(overlay);
 
   overlay.querySelector("#dogam-close-btn").addEventListener("click", () => {
-    SOUND.play("click");
     overlay.remove();
   });
 }
@@ -494,11 +488,9 @@ function showSettingsPanel(container) {
     STATE.soundOn = STATE.soundOn === false ? true : false;
     sfxToggle.style.background = STATE.soundOn === false ? "rgba(0,0,0,0.35)" : "var(--brass)";
     sfxToggle.firstElementChild.style.left = STATE.soundOn === false ? "2px" : "26px";
-    if (STATE.soundOn) SOUND.play("click");
   });
 
   overlay.querySelector("#settings-close-btn").addEventListener("click", () => {
-    SOUND.play("click");
     overlay.remove();
   });
 }
@@ -537,7 +529,6 @@ function showAdForCoinsModal(container) {
     showCoinPopup(container, AD_REWARD_COIN);
   });
   overlay.querySelector("#ad-cancel-btn").addEventListener("click", () => {
-    SOUND.play("click");
     overlay.remove();
   });
 }
@@ -580,7 +571,6 @@ function showConfirm(container, message, onYes) {
     </div>`;
   container.appendChild(overlay);
   overlay.querySelector("#no-btn").addEventListener("click", () => {
-    SOUND.play("click");
     overlay.remove();
   });
   overlay.querySelector("#yes-btn").addEventListener("click", () => {

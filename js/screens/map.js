@@ -80,16 +80,13 @@ function renderMap(container, options = {}) {
   `;
   if (onBack) {
     container.querySelector("#map-back-btn").addEventListener("click", () => {
-      SOUND.play("click");
       onBack();
     });
   }
   container.querySelector("#chest-group").addEventListener("click", () => {
-    SOUND.play("click");
     showRelicDogam(container);
   });
   container.querySelector("#wrongnote-btn").addEventListener("click", () => {
-    SOUND.play("click");
     if (onOpenWrongNote) onOpenWrongNote();
   });
   const currentNode = container.querySelector(`#space-node-${STATE.currentSpaceIndex}`);

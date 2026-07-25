@@ -67,7 +67,6 @@ function renderRelicAward(container, { onContinue, relicName, relicImage, spaceN
   `;
 
   container.querySelector("#relic-close-btn").addEventListener("click", () => {
-    SOUND.play("click");
     onContinue();
   });
 
