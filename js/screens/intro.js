@@ -105,9 +105,15 @@ function renderIntro(container, onEnter) {
     playNext();
   };
 
-  video.addEventListener("ended", showGreeting);
-  // 영상이 없거나 자동재생이 막힌 환경 대비: 5초 뒤 강제 진행
-  setTimeout(showGreeting, 5000);
+ video.addEventListener("ended", showGreeting);
+
+   let fallbackTimer = setTimeout(showGreeting, 8000);
+   video.addEventListener("loadedmetadata", () => {
+     if (video.duration && isFinite(video.duration)) {
+       clearTimeout(fallbackTimer);
+       fallbackTimer = setTimeout(showGreeting, video.duration * 1000 + 1000);
+     }
+   });
 
   container.querySelector("#enter-btn").addEventListener("click", () => {
     SOUND.play("click");
