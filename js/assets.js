@@ -45,6 +45,8 @@ const ASSETS = {
     scrollBg: "assets/images/scroll_bg.png",     // 오답노트 페이지 배경(두루마리)
     quitIcon: "assets/images/quit_icon.png",     // 그만하기(문) 아이콘
     hintWarning: "assets/images/hint_warning.png", // 힌트 캡슐 옆 경고 아이콘
+    introCover: "assets/images/intro_cover.jpg", // 인트로 대문 화면 배경
+    titleLogo: "assets/images/title_logo.png", // 인트로 타이틀(단어가 가물가물할 때 + 꼬비단어) 이미지
     relics: {
       등잔걸이: "assets/images/relics/deungjan.png",
       달항아리: "assets/images/relics/dalhangari.png",

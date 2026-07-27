@@ -31,8 +31,13 @@ function renderRelicAward(container, { onContinue, relicName, relicImage, spaceN
 
       <div id="relic-close-btn" style="position:absolute; top:14px; right:14px; z-index:10; cursor:pointer;
            width:38px; height:38px; border-radius:50%; background:rgba(0,0,0,0.4);
-           border:2px solid rgba(255,255,255,.25); box-shadow:0 2px 6px rgba(0,0,0,0.35);
-           display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff;">✕</div>
+           border:2px solid #e3c878;
+           display:flex; align-items:center; justify-content:center;">
+        <svg width="14" height="14" viewBox="0 0 14 14">
+          <line x1="2" y1="2" x2="12" y2="12" stroke="#e3c878" stroke-width="1.8" stroke-linecap="round"/>
+          <line x1="12" y1="2" x2="2" y2="12" stroke="#e3c878" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
 
       <div style="position:absolute; top:50%; left:50%; width:200vmax; height:200vmax;
            transform:translate(-50%,-50%); pointer-events:none;

@@ -1,12 +1,31 @@
 /**
- * 인트로 화면: 오프닝 영상 -> 꼬비 인사(타자기 효과로 순서대로 등장) -> 입장 버튼
+ * 인트로 화면: 대문 이미지(모험 시작) -> 꼬비 인사(타자기 효과로 순서대로 등장) -> 입장 버튼
  * onEnter: 입장 버튼을 눌렀을 때 실행할 콜백 (router가 넘겨줌)
  */
 function renderIntro(container, onEnter) {
   container.innerHTML = `
     <div class="screen" id="intro-screen">
-      <video id="opening-video" src="${ASSETS.video.opening}" autoplay muted playsinline
-             style="width:100%; display:block;"></video>
+      <div id="cover-screen" style="min-height:100vh; min-height:100dvh; display:flex; flex-direction:column;
+           background:#1c110a; cursor:pointer;">
+        <div style="position:relative;">
+          <img src="${ASSETS.images.introCover}" style="width:100%; display:block;">
+          <div style="position:absolute; left:44%; top:26%; width:54%;">
+            <img src="${ASSETS.images.titleLogo}" style="width:100%; display:block;">
+          </div>
+        </div>
+        <div style="flex:1; background:linear-gradient(180deg, #2a1a0d 0%, #1c110a 100%);
+             display:flex; align-items:center; justify-content:center;">
+          <div id="skip-indicator" style="display:flex; align-items:center; gap:6px;">
+            <span style="font-size:12px; font-weight:700; color:#d9b98a; letter-spacing:1px;">SKIP</span>
+            <div style="width:30px; height:30px; border-radius:50%; border:2px solid #e3c878;
+                 display:flex; align-items:center; justify-content:center;">
+              <svg width="13" height="12" viewBox="0 0 13 12">
+                <path d="M1 1 L11 6 L1 11" fill="none" stroke="#e3c878" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div id="greeting" style="display:none; min-height:100vh; min-height:100dvh; position:relative;
            background-image:url('${ASSETS.images.roomBg}'); background-size:cover; background-position:center;
@@ -26,14 +45,12 @@ function renderIntro(container, onEnter) {
           </div>
         </div>
 
-        <button id="enter-btn" class="btn-primary shimmer-btn" style="position:relative; z-index:1; width:60%;
-                margin:0 auto; padding:11px; font-size:19px; overflow:hidden;
-                opacity:0; pointer-events:none; transition:opacity 0.5s ease;">입장</button>
+        <div id="control-btn-wrap" style="position:relative; z-index:1; min-height:52px; display:flex; justify-content:center;"></div>
       </div>
     </div>
   `;
 
-  const video = container.querySelector("#opening-video");
+  const coverScreen = container.querySelector("#cover-screen");
   const greeting = container.querySelector("#greeting");
   const bubbleText = container.querySelector("#bubble-text");
   const bubbleCoin = container.querySelector("#bubble-coin");
@@ -65,22 +82,63 @@ function renderIntro(container, onEnter) {
   }
 
   const lines = [
-    { text: "반갑네!<br>먼저 내 서재에서 잃어버린 단어패를 찾아보시게.", coin: false, hold: 1600 },
-    { text: "하루에 딱 10개의 단어패만<br>찾아보자구!", coin: false, hold: 1600 },
-    { text: `엽전 ${STATE.coins}개를 줄 테니<br>힌트가 필요할 때 쓰시게나!`, coin: true, hold: 0 },
+    { text: "어서오시게나!<br>이곳은 나의 서재일세.", coin: false },
+    { text: "요즘들어 단어들이 입안에서 뱅뱅 맴돌고 잘 안떠오른다지?", coin: false },
+    { text: "내가 도와주겠네!<br>나와 함께 매일 방방곡곡의 서재를 돌며<br>잊어버린 단어들을 찾아보세.", coin: false },
+    { text: `엽전 ${STATE.coins}개를 줄테니 힌트가 필요할때 쓰시게나.`, coin: true },
   ];
 
-  let greetingShown = false;
+  const controlWrap = container.querySelector("#control-btn-wrap");
+
+  function renderArrowBtn(onClick) {
+    controlWrap.innerHTML = `
+      <button id="control-btn" style="margin:0 auto; padding:0; background:none; border:none;
+              cursor:pointer; opacity:0; pointer-events:none; transition:opacity 0.5s ease;">
+        <div style="width:52px; height:52px; border-radius:50%; border:2px solid #e3c878;
+             background:rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center;
+             animation: skipBounce 1.4s ease-in-out infinite, skipGlow 1.6s ease-in-out infinite;">
+          <svg width="16" height="20" viewBox="0 0 16 20">
+            <path d="M2 1 L14 10 L2 19" fill="none" stroke="#e3c878" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </button>`;
+    const btn = controlWrap.querySelector("#control-btn");
+    btn.addEventListener("click", () => {
+      SOUND.play("click");
+      onClick();
+    });
+    requestAnimationFrame(() => {
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    });
+  }
+
+  function renderEnterBtn() {
+    controlWrap.innerHTML = `
+      <button id="control-btn" style="width:60%; padding:13px; font-size:18px; font-weight:800;
+              background:rgba(0,0,0,0.3); color:#e3c878; border:2px solid #e3c878; border-radius:999px;
+              cursor:pointer; opacity:0; pointer-events:none; transition:opacity 0.5s ease;
+              animation: skipGlow 1.6s ease-in-out infinite;">입장</button>`;
+    const btn = controlWrap.querySelector("#control-btn");
+    btn.addEventListener("click", () => {
+      SOUND.play("click");
+      onEnter();
+    });
+    requestAnimationFrame(() => {
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    });
+  }
+
   const showGreeting = () => {
-    if (greetingShown) return;
-    greetingShown = true;
-    video.style.display = "none";
+    coverScreen.style.display = "none";
     greeting.style.display = "flex";
 
     let idx = 0;
     function playNext() {
       const line = lines[idx];
       bubbleCoin.style.visibility = "hidden";
+      controlWrap.innerHTML = "";
 
       // 타이핑 중 박스가 흔들리지 않도록, 전체 문장을 먼저 넣어 높이를 재고 고정한다
       bubbleText.style.height = "auto";
@@ -91,37 +149,27 @@ function renderIntro(container, onEnter) {
       typewriter(bubbleText, line.text, 150, () => {
         if (line.coin) bubbleCoin.style.visibility = "visible";
         if (idx < lines.length - 1) {
-          setTimeout(() => {
+          renderArrowBtn(() => {
             idx++;
             playNext();
-          }, line.hold);
+          });
         } else {
-          const enterBtn = container.querySelector("#enter-btn");
-          enterBtn.style.opacity = "1";
-          enterBtn.style.pointerEvents = "auto";
+          renderEnterBtn();
         }
       });
     }
     playNext();
   };
 
-  video.addEventListener("ended", showGreeting);
-
-  // 영상이 없거나 자동재생이 막힌 환경 대비 안전장치.
-  // 처음엔 넉넉하게(8초) 잡아두고, 실제 영상 길이를 알게 되면 그 길이+1초로 다시 맞춤
-  // (영상이 5초보다 길면 끝까지 다 보기 전에 잘리는 일이 없도록)
-  let fallbackTimer = setTimeout(showGreeting, 8000);
-  video.addEventListener("loadedmetadata", () => {
-    if (video.duration && isFinite(video.duration)) {
-      clearTimeout(fallbackTimer);
-      fallbackTimer = setTimeout(showGreeting, video.duration * 1000 + 1000);
-    }
-  });
-
-  container.querySelector("#enter-btn").addEventListener("click", () => {
+  let coverAdvanced = false;
+  const advanceFromCover = () => {
+    if (coverAdvanced) return;
+    coverAdvanced = true;
     SOUND.play("click");
-    onEnter();
-  });
+    showGreeting();
+  };
+  coverScreen.addEventListener("click", advanceFromCover);
+  setTimeout(advanceFromCover, 4000);
 }
 
 if (typeof module !== "undefined") module.exports = { renderIntro };

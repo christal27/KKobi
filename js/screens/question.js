@@ -36,60 +36,52 @@ function drawQuestion(container, q, callbacks) {
   const isNative = q.type === NATIVE_TYPE;
 
   container.innerHTML = `
-    <div class="screen" style="background:var(--bg); min-height:100vh; min-height:100dvh; padding:0 16px 40px;">
+    <div class="screen" style="background:var(--bg); min-height:100vh; min-height:100dvh; padding:0 16px 20px;
+                display:flex; flex-direction:column;">
       <div style="margin:0 -16px 14px; padding:9px 16px; background:var(--header);
                   border-bottom:2px solid rgba(0,0,0,.22);">
-        <div style="display:flex; align-items:center; gap:7px;">
-          <div id="chest-group" style="display:flex; align-items:center; flex-shrink:0; cursor:pointer;">
-            <img src="${ASSETS.images.chestIcon}" style="width:50px; height:50px; object-fit:contain; display:block;
-                 position:relative; z-index:2; margin-right:-16px;
-                 filter: drop-shadow(1px 1px 0 #241c14) drop-shadow(-1px -1px 0 #241c14);">
-            <div class="capsule" style="font-size:15px; height:38px; padding:0 12px 0 20px; gap:2px;">
-              <b style="color:var(--brass-light); font-size:17px; line-height:1; white-space:nowrap;">${STATE.spaceProgress}</b>
-              <span style="line-height:1; white-space:nowrap;">&nbsp;/ ${STATE.spaceTotal}</span>
-            </div>
+        <div style="display:flex; align-items:center; justify-content:center; gap:22px;">
+          <div id="wrongnote-shortcut" style="flex-shrink:0; width:34px; height:34px; border-radius:50%; border:2px solid #e3c878;
+               display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative;">
+            <svg width="20" height="18" viewBox="0 0 20 18">
+              <path d="M2 3 C2 3 6 2 9 4 L9 16 C6 14 2 15 2 15 Z" fill="none" stroke="#e3c878" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M18 3 C18 3 14 2 11 4 L11 16 C14 14 18 15 18 15 Z" fill="none" stroke="#e3c878" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
           </div>
-          <div id="coin-wrap" style="display:flex; align-items:center; flex-shrink:0;">
-            <img src="${ASSETS.images.coinIcon}" style="width:46px; height:46px; display:block;
-                 position:relative; z-index:2; margin-right:-14px;">
-            <div id="coin-capsule" class="capsule" style="font-size:15px; height:38px; padding:0 12px 0 18px; gap:2px; position:relative;">
-              <span id="coin-display" style="color:var(--brass-light); white-space:nowrap;">${STATE.coins}</span>
-            </div>
-          </div>
-          <div id="wrongnote-shortcut" style="flex-shrink:0; width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative;">
-            <img src="${ASSETS.images.wrongNoteIcon}" style="width:30px; height:30px; object-fit:contain; display:block;
-                 filter: drop-shadow(1px 1px 0 #241c14) drop-shadow(-1px -1px 0 #241c14);">
-          </div>
-          <div id="map-btn" style="flex-shrink:0; width:46px; height:46px; box-sizing:border-box;
+          <div id="map-btn" style="flex-shrink:0; width:34px; height:34px; border-radius:50%; border:2px solid #e3c878;
                display:flex; align-items:center; justify-content:center; cursor:pointer;">
-            <svg width="34" height="34" viewBox="-30 -34 60 82" style="display:block;">
-              <ellipse cx="0" cy="42" rx="18" ry="5.5" fill="#000" opacity="0.3"/>
-              <path d="M0 -30 C15 -30 26 -19 26 -6 C26 10 8 30 0 40 C-8 30 -26 10 -26 -6 C-26 -19 -15 -30 0 -30 Z" fill="#4f7452"/>
-              <circle r="9" fill="#2c3948"/>
+            <svg width="18" height="20" viewBox="0 0 18 20">
+              <path d="M9 1 C13 1 16 4 16 8 C16 13 9 19 9 19 C9 19 2 13 2 8 C2 4 5 1 9 1 Z" fill="none" stroke="#e3c878" stroke-width="1.6" stroke-linejoin="round"/>
+              <circle cx="9" cy="8" r="2.6" fill="none" stroke="#e3c878" stroke-width="1.6"/>
             </svg>
           </div>
-          <div id="settings-btn" style="flex-shrink:0; width:34px; height:34px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
-            <svg width="24" height="24" viewBox="-24 -24 48 48" style="display:block;">
-              <g fill="#e3c878">
-                <rect x="-3.5" y="-24" width="7" height="9" rx="1.5"/>
-                <rect x="-3.5" y="-24" width="7" height="9" rx="1.5" transform="rotate(45)"/>
-                <rect x="-3.5" y="-24" width="7" height="9" rx="1.5" transform="rotate(90)"/>
-                <rect x="-3.5" y="-24" width="7" height="9" rx="1.5" transform="rotate(135)"/>
-                <rect x="-3.5" y="-24" width="7" height="9" rx="1.5" transform="rotate(180)"/>
-                <rect x="-3.5" y="-24" width="7" height="9" rx="1.5" transform="rotate(225)"/>
-                <rect x="-3.5" y="-24" width="7" height="9" rx="1.5" transform="rotate(270)"/>
-                <rect x="-3.5" y="-24" width="7" height="9" rx="1.5" transform="rotate(315)"/>
+          <div id="settings-btn" style="flex-shrink:0; width:34px; height:34px; border-radius:50%; border:2px solid #e3c878;
+               display:flex; align-items:center; justify-content:center; cursor:pointer;">
+            <svg width="20" height="20" viewBox="0 0 20 20">
+              <circle cx="10" cy="10" r="3" fill="none" stroke="#e3c878" stroke-width="1.6"/>
+              <g stroke="#e3c878" stroke-width="1.6" stroke-linecap="round">
+                <line x1="10" y1="1.5" x2="10" y2="4"/>
+                <line x1="10" y1="16" x2="10" y2="18.5"/>
+                <line x1="1.5" y1="10" x2="4" y2="10"/>
+                <line x1="16" y1="10" x2="18.5" y2="10"/>
+                <line x1="4" y1="4" x2="5.8" y2="5.8"/>
+                <line x1="14.2" y1="14.2" x2="16" y2="16"/>
+                <line x1="16" y1="4" x2="14.2" y2="5.8"/>
+                <line x1="5.8" y1="14.2" x2="4" y2="16"/>
               </g>
-              <circle r="16" fill="#e3c878"/>
-              <circle r="6" fill="#2c3948"/>
             </svg>
           </div>
-          <div id="quit-chip" style="flex-shrink:0; width:34px; height:34px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
-            <img src="${ASSETS.images.quitIcon}" style="width:22px; height:auto; display:block;">
+          <div id="quit-chip" style="flex-shrink:0; width:34px; height:34px; border-radius:50%; border:2px solid #e3c878;
+               display:flex; align-items:center; justify-content:center; cursor:pointer;">
+            <svg width="14" height="18" viewBox="0 0 14 18">
+              <path d="M2 1 L11 1 L11 17 L2 17" fill="none" stroke="#e3c878" stroke-width="1.6" stroke-linejoin="round"/>
+              <circle cx="7.5" cy="9" r="0.9" fill="#e3c878"/>
+            </svg>
           </div>
         </div>
       </div>
 
+      <div style="flex:1; display:flex; flex-direction:column;">
       ${
         isNative
           ? `<div style="display:flex; align-items:center; gap:6px; margin-bottom:8px;">
@@ -112,24 +104,33 @@ function drawQuestion(container, q, callbacks) {
 
       <div id="answer-area" style="margin-bottom:24px;"></div>
 
-      <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:10px;">
-        ${
-          isSelect
-            ? ""
-            : `<div style="display:flex; align-items:center; gap:8px;">
-                <div id="hint-text" style="font-size:14px; font-weight:800; color:var(--brass-light); text-align:right;"></div>
-                <div id="hint-chip" class="capsule" style="cursor:pointer; font-size:15px; height:38px; padding:0 16px 0 10px; gap:6px; flex-shrink:0; color:var(--text-dim);">
-                  <img src="${ASSETS.images.hintWarning}" style="width:18px; height:18px; display:block;"> 힌트
-                </div>
-              </div>`
-        }
-      </div>
+      <div style="min-height:10px; margin-bottom:10px;"></div>
 
       ${
         isSelect || isShortRecall
           ? ""
           : `<button id="submit-btn" class="btn-primary" style="width:100%; padding:17px; font-size:19px; border-radius:999px;">확인</button>`
       }
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:center; gap:20px; padding:14px 0 4px; flex-shrink:0;">
+        <div id="chest-group" style="display:flex; align-items:center; flex-shrink:0; cursor:pointer;">
+          <img src="${ASSETS.images.chestIcon}" style="width:50px; height:50px; object-fit:contain; display:block;
+               position:relative; z-index:2; margin-right:-16px;
+               filter: drop-shadow(1px 1px 0 #241c14) drop-shadow(-1px -1px 0 #241c14);">
+          <div class="capsule" style="font-size:15px; height:38px; padding:0 12px 0 20px; gap:2px;">
+            <b style="color:var(--brass-light); font-size:17px; line-height:1; white-space:nowrap;">${STATE.spaceProgress}</b>
+            <span style="line-height:1; white-space:nowrap;">&nbsp;/ ${STATE.spaceTotal}</span>
+          </div>
+        </div>
+        <div id="coin-wrap" style="display:flex; align-items:center; flex-shrink:0; ${isSelect ? "" : "cursor:pointer;"}">
+          <img src="${ASSETS.images.coinIcon}" style="width:46px; height:46px; display:block;
+               position:relative; z-index:2; margin-right:-14px;">
+          <div id="coin-capsule" class="capsule" style="font-size:15px; height:38px; padding:0 12px 0 18px; gap:2px; position:relative;">
+            <span id="coin-display" style="color:var(--brass-light); white-space:nowrap;">${STATE.coins}</span>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 
@@ -244,7 +245,7 @@ function drawQuestion(container, q, callbacks) {
       .map((c) => ({ c, r: Math.random() }))
       .sort((a, b) => a.r - b.r)
       .map((x) => x.c);
-    tileState = { filled: [firstChar, ...new Array(restLetters.length).fill(null)], pool: shuffled, fixedFirst: true };
+    tileState = { filled: [firstChar, ...new Array(restLetters.length).fill(null)], pool: shuffled, fixedFirst: true, hints: new Array(letters.length).fill(null) };
 
     answerArea.innerHTML = `
       <div id="blanks" style="display:flex; gap:8px; justify-content:center; margin-bottom:16px; flex-wrap:wrap;"></div>
@@ -264,9 +265,9 @@ function drawQuestion(container, q, callbacks) {
     };
   }
 
-  const hintChip = container.querySelector("#hint-chip");
-  if (hintChip) {
-    hintChip.addEventListener("click", () => {
+  const coinWrap = container.querySelector("#coin-wrap");
+  if (coinWrap && !isSelect) {
+    coinWrap.addEventListener("click", () => {
       if (hintRevealed) return;
       if (STATE.coins <= 0) {
         showAdForCoinsModal(container);
@@ -274,9 +275,21 @@ function drawQuestion(container, q, callbacks) {
       }
       StateActions.spendCoin(1);
       hintRevealed = true;
-      container.querySelector("#hint-text").textContent = q.hint;
       container.querySelector("#coin-display").textContent = STATE.coins;
       showCoinPopup(container, -1);
+
+      // q.hint 형식: "첫글자 나머지초성들" (예: "웬 ㅁㅎㅁ") — 첫 글자는 이미 박스에 고정 표시되므로 나머지만 사용
+      const consonants = (q.hint.split(" ")[1] || "").split("");
+
+      if (isShortRecall) {
+        const textInput = answerArea.querySelector("#text-answer");
+        if (textInput) textInput.placeholder = consonants.join(" ");
+      } else if (isTileRecall) {
+        consonants.forEach((c, i) => {
+          tileState.hints[i + 1] = c;
+        });
+        renderTiles(answerArea);
+      }
     });
   }
 
@@ -345,11 +358,17 @@ function renderTiles(answerArea) {
   const tilesEl = answerArea.querySelector("#tiles");
 
   blanksEl.innerHTML = tileState.filled
-    .map(
-      (ch, i) => `<div class="tile-box" data-fixed="${i === 0 && tileState.fixedFirst ? "1" : "0"}"
-        style="background:${ch ? "var(--wood-line)" : "var(--panel)"};
-        ${i === 0 && tileState.fixedFirst ? "opacity:0.85;" : "cursor:pointer;"}">${ch || ""}</div>`
-    )
+    .map((ch, i) => {
+      const isFixed = i === 0 && tileState.fixedFirst;
+      if (ch) {
+        return `<div class="tile-box" data-fixed="${isFixed ? "1" : "0"}"
+          style="background:var(--wood-line); ${isFixed ? "opacity:0.85;" : "cursor:pointer;"}">${ch}</div>`;
+      }
+      const hintChar = tileState.hints && tileState.hints[i];
+      return `<div class="tile-box" data-fixed="0" style="background:var(--panel); cursor:pointer;">
+        ${hintChar ? `<span style="opacity:.55; font-size:0.85em;">${hintChar}</span>` : ""}
+      </div>`;
+    })
     .join("");
 
   tilesEl.innerHTML = tileState.pool

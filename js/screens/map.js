@@ -19,9 +19,13 @@ function renderMap(container, options = {}) {
         onBack
           ? `<div id="map-back-btn" style="position:absolute; top:32px; right:14px; z-index:10; cursor:pointer;
                width:38px; height:38px; border-radius:50%; background:rgba(0,0,0,0.4);
-               border:2px solid rgba(255,255,255,.25); box-shadow:0 2px 6px rgba(0,0,0,0.35);
-               display:flex; align-items:center; justify-content:center;
-               font-size:14px; color:#fff;">✕</div>`
+               border:2px solid #e3c878;
+               display:flex; align-items:center; justify-content:center;">
+               <svg width="14" height="14" viewBox="0 0 14 14">
+                 <line x1="2" y1="2" x2="12" y2="12" stroke="#e3c878" stroke-width="1.8" stroke-linecap="round"/>
+                 <line x1="12" y1="2" x2="2" y2="12" stroke="#e3c878" stroke-width="1.8" stroke-linecap="round"/>
+               </svg>
+             </div>`
           : ""
       }
 
@@ -37,10 +41,14 @@ function renderMap(container, options = {}) {
             <span style="color:#fff; line-height:1;">&nbsp;/ ${STATE.spaceTotal}</span>
           </div>
         </div>
-        <div style="display:flex; align-items:center; flex-shrink:0;">
-          <img id="wrongnote-btn" src="${ASSETS.images.wrongNoteIcon}" style="width:40px; height:40px; object-fit:contain; display:block;
-               position:relative; z-index:2; margin-right:-12px; cursor:pointer;
-               filter: drop-shadow(1px 1px 0 #241c14) drop-shadow(-1px -1px 0 #241c14);">
+        <div style="display:flex; align-items:center; flex-shrink:0; gap:6px;">
+          <div id="wrongnote-btn" style="width:34px; height:34px; border-radius:50%; border:2px solid #e3c878;
+               display:flex; align-items:center; justify-content:center; cursor:pointer;">
+            <svg width="20" height="18" viewBox="0 0 20 18">
+              <path d="M2 3 C2 3 6 2 9 4 L9 16 C6 14 2 15 2 15 Z" fill="none" stroke="#e3c878" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M18 3 C18 3 14 2 11 4 L11 16 C14 14 18 15 18 15 Z" fill="none" stroke="#e3c878" stroke-width="1.6" stroke-linejoin="round"/>
+            </svg>
+          </div>
           <div class="capsule" style="font-size:15px; height:38px; padding:0 12px 0 16px; gap:2px;
                background:rgba(0,0,0,0.4); border:2px solid rgba(255,255,255,.25);
                box-shadow:0 2px 6px rgba(0,0,0,0.35);">
